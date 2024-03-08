@@ -9,7 +9,7 @@ const Login = (props) => {
           <CTALogoOne src="/images/cta-logo-one.svg" alt="" />
           <SignUp>CONSIGUELO YA!</SignUp>
           <Description>
-            Obtenga un acceso premium para empezar sus entrenamientos con una suscripción a Disney+. A partir del 8/03/24, el precio de Disney+
+            Joven padawan obten tu suscripción a Disney+ Diviertete. A partir del 8/03/24, el precio de Disney+
             y el paquete Disney aumentará en $12.000 al mes.
           </Description>
           <CTALogoTwo src="/images/cta-logo-two.png" alt="" />
