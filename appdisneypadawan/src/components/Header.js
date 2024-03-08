@@ -25,16 +25,26 @@ const Header = (props) => {
     });
   }, [userName]);
 
-    const handleAuth = () => {
+  const handleAuth = () => {
+    if (!userName) {
       auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-    };
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push("/");
+        })
+        .catch((err) => alert(err.message));
+    }
+  };
 
     const setUser = (user) => {
       dispatch(
@@ -59,23 +69,23 @@ const Header = (props) => {
             <NavMenu>
               <a href="/home">
                 <img src="/images/home-icon.svg" alt="HOME" />
-                <span>HOME</span>
+                <span>INICIO</span>
               </a>
               <a>
                 <img src="/images/search-icon.svg" alt="SEARCH" />
-                <span>SEARCH</span>
+                <span>BUSCAR</span>
               </a>
               <a>
                 <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-                <span>WATCHLIST</span>
+                <span>VER LISTA</span>
               </a>
               <a>
                 <img src="/images/original-icon.svg" alt="ORIGINALS" />
-                <span>ORIGINALS</span>
+                <span>ORIGINALES</span>
               </a>
               <a>
                 <img src="/images/movie-icon.svg" alt="MOVIES" />
-                <span>MOVIES</span>
+                <span>PELICULAS</span>
               </a>
               <a>
                 <img src="/images/series-icon.svg" alt="SERIES" />
@@ -108,6 +118,30 @@ const Nav = styled.nav`
   padding: 0 36px;
   letter-spacing: 16px;
   z-index: 3;
+  border-shadown: 0.1px solid transparent;
+    animation: rainbowBorder 5s linear infinite, rainbowShadow 5s linear infinite;
+    
+    @keyframes rainbowBorder {
+      0% { border-color: #e6fb04; }
+      14.28% { border-color: #ff6600; }
+      28.56% { border-color: #00ff66; }
+      42.84% { border-color: #00ffff; }
+      57.12% { border-color: #6600ff; }
+      71.4% { border-color: #ff00ff; }
+      85.68% { border-color: #ff0000; }
+      100% { border-color: #e6fb04; }
+    }
+    
+    @keyframes rainbowShadow {
+      0% { box-shadow: 0 0 20px 10px rgba(230, 251, 4, 0.5); }
+      14.28% { box-shadow: 0 0 20px 10px rgba(255, 102, 0, 0.5); }
+      28.56% { box-shadow: 0 0 20px 10px rgba(0, 255, 102, 0.5); }
+      42.84% { box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.5); }
+      57.12% { box-shadow: 0 0 20px 10px rgba(102, 0, 255, 0.5); }
+      71.4% { box-shadow: 0 0 20px 10px rgba(255, 0, 255, 0.5); }
+      85.68% { box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 20px 10px rgba(230, 251, 4, 0.5); }
+    }
 `;
 
 const Logo = styled.a`
@@ -237,12 +271,45 @@ const SignOut = styled.div`
     border-radius: 50%;
     width: 100%;
     height: 100%;
+    border: 0.1px solid transparent;
+    background-image: linear-gradient(45deg, 
+      #e6fb04, 
+      #ff6600, 
+      #00ff66, 
+      #00ffff, 
+      #6600ff, 
+      #ff00ff, 
+      #ff0000);
+    animation: rainbowBorder 5s linear infinite, rainbowShadow 5s linear infinite;
+    
+    @keyframes rainbowBorder {
+      0% { border-color: #e6fb04; }
+      14.28% { border-color: #ff6600; }
+      28.56% { border-color: #00ff66; }
+      42.84% { border-color: #00ffff; }
+      57.12% { border-color: #6600ff; }
+      71.4% { border-color: #ff00ff; }
+      85.68% { border-color: #ff0000; }
+      100% { border-color: #e6fb04; }
+    }
+    
+    @keyframes rainbowShadow {
+      0% { box-shadow: 0 0 20px 10px rgba(230, 251, 4, 0.5); }
+      14.28% { box-shadow: 0 0 20px 10px rgba(255, 102, 0, 0.5); }
+      28.56% { box-shadow: 0 0 20px 10px rgba(0, 255, 102, 0.5); }
+      42.84% { box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.5); }
+      57.12% { box-shadow: 0 0 20px 10px rgba(102, 0, 255, 0.5); }
+      71.4% { box-shadow: 0 0 20px 10px rgba(255, 0, 255, 0.5); }
+      85.68% { box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.5); }
+      100% { box-shadow: 0 0 20px 10px rgba(230, 251, 4, 0.5); }
+    }
   }
 
   &:hover {
     ${DropDown} {
       opacity: 1;
       transition-duration: 1s;
+      back
     }
   }
 `;

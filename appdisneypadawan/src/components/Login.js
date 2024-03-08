@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 const Login = (props) => {
   return (
@@ -8,13 +9,12 @@ const Login = (props) => {
           <CTALogoOne src="/images/cta-logo-one.svg" alt="" />
           <SignUp>CONSIGUELO YA!</SignUp>
           <Description>
-            Obtenga un acceso premium para empezar sus entrenamiendo ':3'
-            con una suscripción a Disney+. A partir del 8/03/24, el precio de Disney+
-            y el paquete Disney aumentará en $1 solo si NO PASO ESTA PRUEBA JAJAJA.
+            Obtenga un acceso premium para empezar sus entrenamientos con una suscripción a Disney+. A partir del 8/03/24, el precio de Disney+
+            y el paquete Disney aumentará en $12.000 al mes.
           </Description>
           <CTALogoTwo src="/images/cta-logo-two.png" alt="" />
         </CTA>
-        <BgImage />
+        <CarouselBg />
       </Content>
     </Container>
   );
@@ -44,16 +44,40 @@ const Content = styled.div`
 
 const BgImage = styled.div`
   height: 100%;
-  background-position: top;
+  background-position: left top; /* Ajusta la posición de la imagen hacia la izquierda */
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("/images/login-background.jpg");
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   z-index: -1;
+  transition: background-image 1s ease; /* Agrega una transición suave para el cambio de imagen */
 `;
+
+const CarouselBg = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [
+    "/images/login-background.jpg",
+    "/images/img1.jpg",
+    "/images/img2.jpg",
+    "/images/img3.jpg",
+    "/images/img4.jpg",
+    "/images/img5.jpg",
+    "/images/img6.jpg",
+    "/images/img7.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((current) => (current + 1) % images.length);
+    }, 5000); 
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return <BgImage style={{ backgroundImage: `url(${images[currentImage]})` }} />;
+};
 
 const CTA = styled.div`
   max-width: 650px;
